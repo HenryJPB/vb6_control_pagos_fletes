@@ -1,0 +1,420 @@
+'**********************************************************************************
+'*  Creado x el Wizard de Formularios Visual Basic v 6.0.
+'*  Formulario Tipo Matriz con Codigo ADO conecctado via ODBC a la B.D.
+'*  el 18-10-2006.
+'*  Actualizado x Henry J. Pulgar B.
+'*  Ultima fecha actualizado:  27-10-2006.
+'*     Trabajando con MATRICES >>>>     MODULO TIPO MODELO.
+'**********************************************************************************
+Dim WithEvents adoPrimaryRS As Recordset
+Dim mbChangedByCode As Boolean
+Dim mvBookMark As Variant
+Dim mbEditFlag As Boolean
+Dim mbAddNewFlag As Boolean
+Dim mbDataChanged As Boolean
+Dim StringConeccionDesfle00 As String  'Agregado x Henry Pulgar
+
+'* Autor: HPB.  23-10-2006.
+Private Sub ACTUALIZAR_ATTBR_GRID(TipoBoolean As Boolean)
+     grdDataGrid.AllowAddNew = TipoBoolean
+     grdDataGrid.AllowDelete = TipoBoolean
+     grdDataGrid.AllowUpdate = TipoBoolean
+End Sub
+
+'************************************************************************
+'* Autor: Henry Pulgar B.
+'* Fecha: 26-20-2006.
+'* General Porpuse: Coneccion ODBC utillizando CODIGO ADO
+'* Caracteristica : De esta menera. ( Puede ser hecho de otra  forma )
+'***********************************************************************
+Private Sub INICIAR_VARIABLES()
+    StringConeccionDesfle00 = "PROVIDER=MSDASQL;dsn=DESICA806;uid=ops$desfle00;pwd=ops$desfle00;"
+End Sub
+
+Private Sub Form_Load()
+  Dim db As Connection
+  Set db = New Connection
+  INICIAR_VARIABLES
+  db.CursorLocation = adUseClient
+  db.Open StringConeccionDesfle00 '"PROVIDER=MSDASQL;dsn=DESICA806;uid=ops$desfle00;pwd=ops$desfle00;"
+  Set adoPrimaryRS = New Recordset
+  adoPrimaryRS.Open "select C1_COD_PAIS Cod_Pais, " & _
+                            "C1_NOMBRE_PAIS Nombre_Pais " & _
+                            "from FLETE01_DAT " & _
+                            "Order by C1_COD_PAIS", db, adOpenStatic, adLockOptimistic
+
+  Set grdDataGrid.DataSource = adoPrimaryRS
+  
+  mbDataChanged = False
+  
+  ACTUALIZAR_ATTBR_GRID (False)   'Agregado.
+End Sub
+
+Private Sub Form_Resize()
+  On Error Resume Next
+  'Esto cambiará el tamaño de la cuadrícula al cambiar el tamaño del formulario
+  grdDataGrid.Height = Me.ScaleHeight - 30 - picButtons.Height - picStatBox.Height
+  lblStatus.Width = Me.Width - 1500
+  cmdNext.Left = lblStatus.Width + 700
+  cmdLast.Left = cmdNext.Left + 340
+End Sub
+
+Private Sub Form_KeyDown(KeyCode As Integer, Shift As Integer)
+  If mbEditFlag Or mbAddNewFlag Then Exit Sub
+
+  Select Case KeyCode
+    Case vbKeyEscape
+      cmdClose_Click
+    Case vbKeyEnd
+      cmdLast_Click
+    Case vbKeyHome
+      cmdFirst_Click
+    Case vbKeyUp, vbKeyPageUp
+      If Shift = vbCtrlMask Then
+        cmdFirst_Click
+      Else
+        cmdPrevious_Click
+      End If
+    Case vbKeyDown, vbKeyPageDown
+      If Shift = vbCtrlMask Then
+        cmdLast_Click
+      Else
+        cmdNext_Click
+      End If
+  End Select
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+  Screen.MousePointer = vbDefault
+End Sub
+
+Private Sub adoPrimaryRS_MoveComplete(ByVal adReason As ADODB.EventReasonEnum, ByVal pError As ADODB.Error, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+  'Esto mostrará la posición de registro actual para este Recordset
+  lblStatus.Caption = "Record: " & CStr(adoPrimaryRS.AbsolutePosition)
+End Sub
+
+Private Sub adoPrimaryRS_WillChangeRecord(ByVal adReason As ADODB.EventReasonEnum, ByVal cRecords As Long, adStatus As ADODB.EventStatusEnum, ByVal pRecordset As ADODB.Recordset)
+  'Aquí se coloca el código de validación
+  'Se llama a este evento cuando ocurre la siguiente acción
+  Dim bCancel As Boolean
+  '
+  Select Case adReason
+  Case adRsnAddNew
+  Case adRsnClose
+  Case adRsnDelete
+  Case adRsnFirstChange
+  Case adRsnMove
+  Case adRsnRequery
+  Case adRsnResynch
+  Case adRsnUndoAddNew
+  Case adRsnUndoDelete
+  Case adRsnUndoUpdate
+  Case adRsnUpdate
+  End Select
+  '
+  If bCancel Then adStatus = adStatusCancel
+End Sub
+
+Private Sub cmdAdd_Click()
+  grdDataGrid.AllowAddNew = True  'Agregado by Myself
+  grdDataGrid.AllowUpdate = True  'Agregado x myself
+  On Error GoTo AddErr
+  adoPrimaryRS.MoveLast
+  adoPrimaryRS.AddNew
+  grdDataGrid.SetFocus
+  '
+  cmdEdit_Click                    'Agrgado by myself.
+  Exit Sub
+AddErr:
+  'MsgBox Err.Description, vbAbortRetryIgnore, "ATENCION"
+   MsgBox Err.Description
+End Sub
+'************************************************************************
+'* Autor: Henry Pulgar B.
+'* Fecha: 26-20-2006.
+'* General Porpuse: Coneccion ODBC utillizando CODIGO ADO
+'* Caracteristica : De esta menera. ( Puede ser hecho de otra  forma )
+'***********************************************************************
+Private Function VALIDAR_DESTINO(CodPais As String) As Boolean
+   Dim CadenaSql As String
+   Dim SqlCriterio As String
+   '
+   Dim FLETE03_DAT As Connection    'Coneccion.Ubicar la tabla.
+   Dim FLETE03_REC As New Recordset 'Coneccion crear el Record set
+   '
+   Set FLETE03_DAT = New Connection
+   Set FLETE03_REC = New Recordset
+   '
+   FLETE03_DAT.CursorLocation = adUseClient
+   FLETE03_DAT.Open StringConeccionDesfle00 '"PROVIDER=MSDASQL;dsn=DESICA806;uid=ops$desfle00;pwd=ops$desfle00;"
+   '
+   '*** Cuerpo del query: Invocar todos los registros para luego ejecutar un find,...
+        CadenaSql = "select * " & _
+                    "from    FLETE03_DAT " & _
+                    "where   C3_COD_PAIS is not null "
+        '
+        FLETE03_REC.Open CadenaSql, FLETE03_DAT, adOpenStatic, adLockOptimistic
+        If (FLETE03_REC.RecordCount > 0) Then  'La Tabla posee registros ?
+            SqlCriterio = " C3_COD_PAIS =" + "'" + CodPais + "'"
+            'MsgBox SqlCriterio
+            FLETE03_REC.Find (SqlCriterio)   'Buscar Utilizando comando Find
+            If FLETE03_REC.EOF Then
+               'MsgBox "Registro no encontrado puede ser eliminado"
+               VALIDAR_DESTINO = False
+            Else
+               'MsgBox "Registro encontrado en la tabla FLETE03_DAT"
+               VALIDAR_DESTINO = True
+            End If
+            Exit Function
+        Else
+           MsgBox "La tabla esta Vacia", vbCritical, "ATENCION"
+        End If
+   '***Cerrar coneccion ****
+   FLETE03_REC.Close
+   FLETE03_DAT.Close
+End Function 'VALIDAR_DESTINO
+
+'***********************************************************
+Private Sub cmdDelete_Click()
+  Dim Botones, Respuesta
+  On Error GoTo DeleteErr
+  '
+  Botones = vbYesNo + vbQuestion + vbDefaultButton1
+  Respuesta = MsgBox("Deseas eliminar este Registro ?", Botones, "ATENCION")
+  If (Respuesta = vbYes) Then
+    If Not VALIDAR_DESTINO(adoPrimaryRS("COD_PAIS")) Then
+       With adoPrimaryRS
+        .Delete
+        .MoveNext
+        If .EOF Then .MoveLast
+       End With
+    Else
+       Beep
+       MsgBox "El Pais no puede ser eliminado porque posee registro en la tabla Destino", vbCritical, "ATENCION"
+    End If
+  End If   'If Respuesta,...
+    Exit Sub
+DeleteErr:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdRefresh_Click()
+  'Esto sólo es necesario en aplicaciones multiusuario
+  On Error GoTo RefreshErr
+  Set grdDataGrid.DataSource = Nothing
+  adoPrimaryRS.Requery
+  Set grdDataGrid.DataSource = adoPrimaryRS
+
+  Exit Sub
+RefreshErr:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdEdit_Click()
+  grdDataGrid.AllowUpdate = True          ' Modificado by myself
+  '
+  On Error GoTo EditErr
+  '
+  lblStatus.Caption = "Modificar registro"
+  mbEditFlag = True
+  SetButtons False
+  Exit Sub
+
+EditErr:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdCancel_Click()
+  Dim Cadena As String
+  On Error Resume Next
+
+  SetButtons True
+  mbEditFlag = False
+  mbAddNewFlag = False
+  '
+  ' Evaluar
+  'If IsNull(adoPrimaryRS("COD_PAIS")) Or (adoPrimaryRS("COD_PAIS") = "") Then
+  '   MsgBox ("Cod Pais es nulo2")
+  'End If
+  '
+  adoPrimaryRS.CancelUpdate
+  If mvBookMark > 0 Then
+     adoPrimaryRS.Bookmark = mvBookMark
+  Else
+     adoPrimaryRS.MoveFirst
+  End If
+  mbDataChanged = False
+  '
+  ACTUALIZAR_ATTBR_GRID (False)    'Agrgado by myself
+End Sub
+
+
+' Autor Henry J. Pulgar B.
+' Fecha : 19-10-2006.
+Private Sub ACTUALIZAR_CAMPOS_GRID()
+    Dim Cadena As String
+    Dim ValorOriginal As Integer
+    '
+    If (grdDataGrid.AllowAddNew <> True) And (grdDataGrid.AllowUpdate = True) Then
+        ValorOriginal = adoPrimaryRS("COD_PAIS").OriginalValue  'Porque este campo no deberia ser modificado; es un campo clave.
+        adoPrimaryRS("COD_PAIS") = ValorOriginal   'Solo en modo Update
+    End If
+    Cadena = UCase(adoPrimaryRS("COD_PAIS").Value)
+    adoPrimaryRS("COD_PAIS") = Cadena
+    Cadena = UCase(adoPrimaryRS("NOMBRE_PAIS").Value)
+    adoPrimaryRS("NOMBRE_PAIS").Value = UCase(Cadena)
+End Sub
+
+'************************************************************************
+'* Autor: Henry Pulgar B.
+'* Fecha: 27-20-2006.
+'* General Porpuse:
+'* Caracteristica :
+'***********************************************************************
+Function VALIDAR_REGISTRADO(CodPais As String) As Boolean
+   Dim CadenaSql As String
+   Dim SqlCriterio As String
+   '
+   Dim FLETE01_DAT As Connection    'Coneccion.Ubicar la tabla.
+   Dim FLETE01_REC As New Recordset 'Coneccion crear el Record set
+   '
+   Set FLETE01_DAT = New Connection
+   Set FLETE01_REC = New Recordset
+   '
+   FLETE01_DAT.CursorLocation = adUseClient
+   FLETE01_DAT.Open StringConeccionDesfle00  '"PROVIDER=MSDASQL;dsn=DESICA806;uid=ops$desfle00;pwd=ops$desfle00;"
+   '
+   '*** Cuerpo del query: Invocar todos los registros para luego ejecutar un find,...
+        CadenaSql = "select * " & _
+                    "from    FLETE01_DAT " & _
+                    "where   C1_COD_PAIS is not null "
+        '
+        FLETE01_REC.Open CadenaSql, FLETE01_DAT, adOpenStatic, adLockOptimistic
+        If (FLETE01_REC.RecordCount > 0) Then
+            SqlCriterio = " C1_COD_PAIS =" + "'" + CodPais + "'"
+            'MsgBox SqlCriterio
+            FLETE01_REC.Find (SqlCriterio)   'Buscar Utilizando comando Find
+            If FLETE01_REC.EOF Then
+               'MsgBox "Registro no encontrado; CONTINUAR
+               VALIDAR_REGISTRADO = False
+               Exit Function
+            Else
+               'MsgBox "Registro encontrado en la tabla FLETE01_DAT; se esta violando el codigo de unicidad"
+                VALIDAR_REGISTRADO = True
+                Exit Function
+            End If
+        Else
+           Beep
+           MsgBox "La tabla esta Vacia", vbCritical, "ATENCION"
+        End If
+   '***Cerrar coneccion ****
+   FLETE01_REC.Close
+   FLETE01_DAT.Close
+End Function 'VALIDAR_REGISTRADO(CodPais As String)
+
+' Modificado by H.P.B el 19-10-2006.
+Private Sub cmdUpdate_Click()
+  On Error GoTo UpdateErr
+   
+  ' H.P.B.
+  ' Validar_Campos
+  '
+  ACTUALIZAR_CAMPOS_GRID               'Agregado x Henry Pulgar.
+  '
+  If Not VALIDAR_REGISTRADO(adoPrimaryRS("COD_PAIS")) Then
+    adoPrimaryRS.UpdateBatch adAffectAll
+    If mbAddNewFlag Then
+      adoPrimaryRS.MoveLast              'va al nuevo registro
+    End If
+  Else
+    Beep
+    MsgBox "Este Cod de Pais ya esta definido en la Base de Datos", vbCritical, "ATENCION"
+  End If  'VALIDAR pais registrado
+  mbEditFlag = False
+  mbAddNewFlag = False
+  SetButtons True
+  mbDataChanged = False
+  ACTUALIZAR_ATTBR_GRID (False)        ' Modificado by myself
+  Exit Sub
+UpdateErr:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdClose_Click()
+  Unload Me
+End Sub
+
+Private Sub cmdFirst_Click()
+  On Error GoTo GoFirstError
+
+  adoPrimaryRS.MoveFirst
+  mbDataChanged = False
+
+  Exit Sub
+
+GoFirstError:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdLast_Click()
+  On Error GoTo GoLastError
+
+  adoPrimaryRS.MoveLast
+  mbDataChanged = False
+
+  Exit Sub
+
+GoLastError:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdNext_Click()
+  On Error GoTo GoNextError
+
+  If Not adoPrimaryRS.EOF Then adoPrimaryRS.MoveNext
+  If adoPrimaryRS.EOF And adoPrimaryRS.RecordCount > 0 Then
+    Beep
+     'ha sobrepasado el final; vuelva atrás
+    adoPrimaryRS.MoveLast
+  End If
+  'muestra el registro actual
+  mbDataChanged = False
+
+  Exit Sub
+GoNextError:
+  MsgBox Err.Description
+End Sub
+
+Private Sub cmdPrevious_Click()
+  On Error GoTo GoPrevError
+
+  If Not adoPrimaryRS.BOF Then adoPrimaryRS.MovePrevious
+  If adoPrimaryRS.BOF And adoPrimaryRS.RecordCount > 0 Then
+    Beep
+    'ha sobrepasado el final; vuelva atrás
+    adoPrimaryRS.MoveFirst
+  End If
+  'muestra el registro actual
+  mbDataChanged = False
+
+  Exit Sub
+
+GoPrevError:
+  MsgBox Err.Description
+End Sub
+
+Private Sub SetButtons(bVal As Boolean)
+  cmdAdd.Visible = bVal
+  cmdEdit.Visible = bVal
+  cmdUpdate.Visible = Not bVal
+  cmdCancel.Visible = Not bVal
+  cmdDelete.Visible = bVal
+  cmdClose.Visible = bVal
+  cmdRefresh.Visible = bVal
+  cmdNext.Enabled = bVal
+  cmdFirst.Enabled = bVal
+  cmdLast.Enabled = bVal
+  cmdPrevious.Enabled = bVal
+End Sub
+
+'-----------------------------------eof(FLETE01_VB6)------------------------------

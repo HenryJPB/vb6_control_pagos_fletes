@@ -1,0 +1,201 @@
+[Root]
+Most Recent Package=Paquete de instalación estándar 1
+
+
+[Package|Paquete de instalación estándar 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Instalar\Pago_Fletes_Transportistas
+
+[Package|Paquete de instalación estándar 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Paquete de instalación estándar 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Paquete de instalación estándar 1|Files Found]
+ActExe.ico=C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\ActExe.ico
+Add.ico=C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Add.ico
+
+[Package|Paquete de instalación estándar 1|Files Released]
+FLETE03_FRM.fmx=
+
+[Package|Paquete de instalación estándar 1|Missing Dependency Information]
+C:\Archivos de programa\Archivos comunes\System\ado\msado20.tlb=
+C:\WINNT\system32\MSSTDFMT.DLL=
+
+[Package|Paquete de instalación estándar 1|Out-of-Date Dependency Information]
+
+[Package|Paquete de instalación estándar 1|Files Added]
+actexe.ico=
+add.ico=
+binoculr.ico=
+catalog.ico=
+cerrar.ico=
+delete.ico=
+disk.ico=
+down_arrow.ico=
+help.ico=
+revert.ico=
+up_arrow.ico=
+c:\forms6\desica\control_pagos_fletes\flete03v3_frm.fmx=
+c:\forms6\desica\control_pagos_fletes\flete04_frm.fmx=
+c:\forms6\desica\control_pagos_fletes\flete04a_frm.fmx=
+c:\forms6\desica\control_pagos_fletes\flete05_frm.fmx=
+c:\reports6\pago_fletes_transportistas\control_pago_fletes.rdf=
+
+[Package|Paquete de instalación estándar 1|Files Removed]
+
+[Package|Paquete de instalación estándar 1|Files In Project]
+C:\Vb6\Proyectos\Control de Pago Fletes\CONTROL_FLETES.exe=Yes
+C:\WINNT\system32\MSVBVM60.DLL=Yes
+C:\WINNT\system32\OLEAUT32.DLL=Yes
+C:\WINNT\system32\OLEPRO32.DLL=Yes
+C:\WINNT\system32\ASYCFILT.DLL=Yes
+C:\WINNT\system32\STDOLE2.TLB=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINNT\system32\VB6ES.DLL=Yes
+C:\WINNT\system32\MSDATGRD.OCX=Yes
+C:\WINNT\system32\MSSTDFMT.DLL=Yes
+C:\WINNT\system32\DATGDES.DLL=Yes
+C:\Archivos de programa\Archivos comunes\System\ado\msado20.tlb=Yes
+C:\WINNT\system32\MSBIND.DLL=Yes
+C:\WINNT\system32\MSHFLXGD.OCX=Yes
+C:\WINNT\system32\MSHFGES.DLL=Yes
+C:\WINNT\system32\MSADODC.OCX=Yes
+C:\WINNT\system32\ADODCES.DLL=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINNT\system32\VB6STKIT.DLL=Yes
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\ActExe.ico=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Add.ico=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\BINOCULR.ICO=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\CATALOG.ICO=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Cerrar.ico=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Delete.ico=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Disk.ico=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Down_Arrow.ICO=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\HELP.ICO=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Revert.ico=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Up_Arrow.ICO=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE03v3_FRM.fmx=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE04_FRM.fmx=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE04A_FRM.fmx=Yes
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE05_FRM.fmx=Yes
+C:\Reports6\Pago_Fletes_Transportistas\Control_Pago_Fletes.RDF=Yes
+
+[Package|Paquete de instalación estándar 1|Configure Registry Files]
+Applicable=No
+
+[Package|Paquete de instalación estándar 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Paquete de instalación estándar 1|Install Locations]
+C:\Vb6\Proyectos\Control de Pago Fletes\CONTROL_FLETES.exe=$(AppPath)
+C:\WINNT\system32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\VB6ES.DLL=$(WinSysPath)
+C:\WINNT\system32\MSDATGRD.OCX=$(WinSysPath)
+C:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINNT\system32\DATGDES.DLL=$(WinSysPath)
+C:\Archivos de programa\Archivos comunes\System\ado\msado20.tlb=$(WinSysPath)
+C:\WINNT\system32\MSBIND.DLL=$(WinSysPath)
+C:\WINNT\system32\MSHFLXGD.OCX=$(WinSysPath)
+C:\WINNT\system32\MSHFGES.DLL=$(WinSysPath)
+C:\WINNT\system32\MSADODC.OCX=$(WinSysPath)
+C:\WINNT\system32\ADODCES.DLL=$(WinSysPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Archivos de programa\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\ActExe.ico=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Add.ico=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\BINOCULR.ICO=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\CATALOG.ICO=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Cerrar.ico=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Delete.ico=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Disk.ico=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Down_Arrow.ICO=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\HELP.ICO=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Revert.ico=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Up_Arrow.ICO=$(AppPath)
+C:\Forms6\desica\Control Pagos Fletes\FLETE03_FRM.fmx=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\ActExe.ico=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Add.ico=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\BINOCULR.ICO=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\CATALOG.ICO=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Cerrar.ico=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Delete.ico=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Disk.ico=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Down_Arrow.ICO=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\HELP.ICO=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Revert.ico=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Up_Arrow.ICO=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE03v3_FRM.fmx=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE04_FRM.fmx=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE04A_FRM.fmx=$(AppPath)
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE05_FRM.fmx=$(AppPath)
+C:\Reports6\Pago_Fletes_Transportistas\Control_Pago_Fletes.RDF=$(AppPath)
+
+[Package|Paquete de instalación estándar 1|Configure Shared Files]
+Applicable=Yes
+C:\Vb6\Proyectos\Control de Pago Fletes\CONTROL_FLETES.exe=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\ActExe.ico=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Add.ico=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\BINOCULR.ICO=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\CATALOG.ICO=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Cerrar.ico=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Delete.ico=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Disk.ico=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Down_Arrow.ICO=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\HELP.ICO=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Revert.ico=No
+C:\Forms6\desica\Control Pagos Fletes\icons gallery\Up_Arrow.ICO=No
+C:\Forms6\desica\Control Pagos Fletes\FLETE03_FRM.fmx=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\ActExe.ico=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Add.ico=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\BINOCULR.ICO=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\CATALOG.ICO=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Cerrar.ico=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Delete.ico=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Disk.ico=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Down_Arrow.ICO=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\HELP.ICO=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Revert.ico=No
+C:\Forms6\desica\Control_Pagos_Fletes\icons gallery\Up_Arrow.ICO=No
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE03v3_FRM.fmx=No
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE04_FRM.fmx=No
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE04A_FRM.fmx=No
+C:\Forms6\desica\Control_Pagos_Fletes\FLETE05_FRM.fmx=No
+C:\Reports6\Pago_Fletes_Transportistas\Control_Pago_Fletes.RDF=No
+
+[Package|Paquete de instalación estándar 1|Distribution]
+Type=single
+Size=
+Title=Fletes Transportistas
+
+[Package|Paquete de instalación estándar 1|Package]
+PackageFolder=C:\Instalar\Pago_Fletes_Transportistas
+ProjectFolder=C:\Vb6\Proyectos\Control de Pago Fletes
+ServerSideCab=
+File1=C:\Instalar\Pago_Fletes_Transportistas\setup.exe
+File2=C:\Instalar\Pago_Fletes_Transportistas\Setup.Lst
+File3=C:\Instalar\Pago_Fletes_Transportistas\CONTROL_FLETES.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Paquete de instalación estándar 1|IconGroups]
+Group0=Fletes Transportistas
+PrivateGroup0=Falso
+Parent0=$(Programs)
+
+[Package|Paquete de instalación estándar 1|Fletes Transportistas]
+Icon1=CONTROL_FLETES.exe
+Title1=Fletes Transportistas
+StartIn1=$(AppPath)
+Key1=Icon1

@@ -1,0 +1,83 @@
+--**********************************************************************
+--  Control de Pago Fletes transportistas
+--  Creado : 09-10-2006.
+--  Actualizado : 19-10-2006.
+--  Autor: Henry J. Pulgar  B.
+--***********************************************************************
+
+--------------------------------------------------------------
+-- Tabla maestra de paises
+--------------------------------------------------------------
+create table FLETE01_DAT
+(
+   C1_COD_PAIS                 varchar2(3) not null,
+   C1_NOMBRE_PAIS              varchar2(30)
+   );
+
+--------------------------------------------------------------
+-- Tabla maestra de ciudades
+--------------------------------------------------------------
+create table FLETE02_DAT
+(
+   C2_COD_ESTADO               varchar2(3) not null,
+   C2_NOMBRE_ESTADO            varchar2(40)
+   );
+
+--------------------------------------------------------------
+-- Tabla Cabeza:
+-- Matriz Destino Monto pago flete/Ton despachadas.
+--------------------------------------------------------------
+create table FLETE03_DAT
+(
+ C3_FECHA_RELACION                   date not null,
+ C3_OBSERVACION1                     varchar2(50),
+ C3_REPARTO_TON_CAMION1              number(3),    -- [1 - 9] tn
+ C3_REPARTO_PRECIO_TON_CAMION1       number(12,2),
+ C3_REPARTO_TON_GANDOLA1             number(3),    -- [1- 14] tn
+ C3_REPARTO_PRECIO_TON_GANDOLA1      number(12,2),
+ C3_REPARTO_TON_TORONTO1             number(3),    -- no definido.
+ C3_REPARTO_PRECIO_TON_TORONTO1      number(12,2)
+);
+
+--------------------------------------------------------------
+-- Tabla Detalle:
+-- Matriz Destino Monto pago flete/Ton despachadas.
+--------------------------------------------------------------
+create table FLETE04_DAT
+(
+   C4_FECHA_RELACION            date           not null,
+   C4_COD_PAIS          	varchar2(3),
+   C4_COD_ESTADO        	varchar2(3)    not null,
+   C4_DESTINO           	varchar2(3)    not null,   /* o Ciudad */
+   C4_NOMBRE_DESTINO            varchar2(30)   not null,
+   C4_COD_POSTAL                varchar2(4),
+   C4_PRECIO_TON_CAMION         number(14,2),
+   C4_PRECIO_TON_GANDOLA        number(14,2),
+   C4_PRECIO_TON_TORONTO        number(14,2),
+   C4_COD_MON_EXT_CAMION        varchar2(3),  -- Valor en lista: BS/USD/E
+   C4_PRECIO_TON_CAMION_ME      number(12,2), -- Precio TON ME( Mon Extran. )
+   C4_COD_MON_EXT_GANDOLA       varchar2(3),  -- Valor en lista: BS/USD/E
+   C4_PRECIO_TON_GANDOLA_ME     number(12,2), -- Precio TON ME ( Mon. Extra. )
+   C4_COD_MON_EXT_TORONTO       varchar2(3),  -- Valor en lista: BS/USD/E
+   C4_PRECIO_TON_TORONTO_ME     number(12,2)  -- Precio TON ME ( Mon. Extranj )
+   );
+
+
+--------------------------------------------------------
+-- Index objects:
+--------------------------------------------------------
+
+create unique index FLETE01_IND on FLETE01_DAT
+( C1_COD_PAIS );
+
+create unique index FLETE02_IND on FLETE02_DAT
+( C2_COD_ESTADO );
+
+create unique index FLETE03_IND on FLETE03_DAT
+( C3_FECHA_RELACION );
+
+create unique index FLETE04_IND on FLETE04_DAT
+( C4_FECHA_RELACION, C4_DESTINO );
+
+----------------------------EOF(ObjFletes.cre)-------------------------------
+
